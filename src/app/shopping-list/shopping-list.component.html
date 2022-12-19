@@ -1,0 +1,14 @@
+<app-shopping-edit
+  (addedIngredient)="onAddedIngredient($event)"
+></app-shopping-edit>
+<hr />
+<div class="list-group">
+  <a
+    href="#"
+    *ngFor="let ingredient of ingredients"
+    class="list-group-item list-group-item-action"
+    aria-current="true"
+  >
+    {{ ingredient.name }} ({{ ingredient.amount }})
+  </a>
+</div>

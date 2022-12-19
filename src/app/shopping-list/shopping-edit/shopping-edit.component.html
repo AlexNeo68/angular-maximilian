@@ -1,0 +1,19 @@
+<form>
+  <div class="row">
+    <div class="col-md-4">
+      <label for="name" class="form-label">Name</label>
+      <input type="text" class="form-control" id="name" #inputName />
+    </div>
+    <div class="col-md-2">
+      <label for="amount" class="form-label">Amount</label>
+      <input type="number" class="form-control" id="amount" #inputAmount />
+    </div>
+    <div class="col-md-12 mt-2 d-flex gap-2">
+      <button type="submit" class="btn btn-success" (click)="addIngr()">
+        Add
+      </button>
+      <button type="button" class="btn btn-danger">Delete</button>
+      <button type="button" class="btn btn-primary">Clear</button>
+    </div>
+  </div>
+</form>
