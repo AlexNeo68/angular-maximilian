@@ -30,7 +30,7 @@ export class RecipesService {
     ),
   ];
 
-  constructor(private slService: ShoppingListService) {}
+  constructor(private slService: ShoppingListService) { }
 
   getRecipes() {
     return this.recipes.slice();
@@ -38,5 +38,9 @@ export class RecipesService {
 
   addIngredients(ingredients: Ingredient[]) {
     this.slService.addIngredients(ingredients);
+  }
+
+  getRecipe(id: string): Recipe {
+    return this.recipes.find(r => r.id === id)
   }
 }

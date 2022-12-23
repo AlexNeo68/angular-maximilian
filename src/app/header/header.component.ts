@@ -5,8 +5,5 @@ import { Component, EventEmitter, Output } from '@angular/core';
   templateUrl: './header.component.html',
 })
 export class HeaderComponent {
-  @Output() firedSetPage = new EventEmitter<string>();
-  setPage(features: string) {
-    this.firedSetPage.emit(features);
-  }
+
 }
