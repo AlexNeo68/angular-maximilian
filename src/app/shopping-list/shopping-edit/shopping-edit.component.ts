@@ -1,6 +1,4 @@
-import {
-  Component, OnDestroy, OnInit, ViewChild,
-} from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Subscription } from 'rxjs';
 import { Ingredient } from 'src/app/shared/ingredient.model';
@@ -12,28 +10,28 @@ import { ShoppingListService } from '../shopping-list.service';
   styleUrls: ['./shopping-edit.component.css'],
 })
 export class ShoppingEditComponent implements OnInit, OnDestroy {
-
-  @ViewChild('f') shForm: NgForm
+  @ViewChild('f') shForm: NgForm;
 
   editMode: boolean;
   editIndex: number;
   editedIngredient: Ingredient;
   subscriptionEditIndex: Subscription;
 
-  constructor(private slService: ShoppingListService) { }
+  constructor(private slService: ShoppingListService) {}
 
   ngOnInit(): void {
-    this.subscriptionEditIndex = this.slService.startEdit.subscribe((index: number) => {
+    this.subscriptionEditIndex = this.slService.startEdit.subscribe(
+      (index: number) => {
+        this.editMode = true;
+        this.editIndex = index;
+        this.editedIngredient = this.slService.getIngredient(index);
 
-      this.editMode = true;
-      this.editIndex = index;
-      this.editedIngredient = this.slService.getIngredient(index);
-
-      this.shForm.setValue({
-        name: this.editedIngredient.name,
-        amount: this.editedIngredient.amount,
-      });
-    })
+        this.shForm.setValue({
+          name: this.editedIngredient.name,
+          amount: this.editedIngredient.amount,
+        });
+      }
+    );
   }
 
   onSubmit() {
@@ -44,7 +42,7 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
     } else {
       this.slService.addIngredient(newIngredient);
     }
-    this.onClear()
+    this.onClear();
   }
 
   onDeleteIngredient() {
@@ -54,12 +52,8 @@ export class ShoppingEditComponent implements OnInit, OnDestroy {
 
   onClear() {
     this.editMode = false;
-    this.editIndex = 0;
-    this.editedIngredient = null;
-    this.shForm.reset()
+    this.shForm.reset();
   }
-
-
 
   ngOnDestroy(): void {
     this.subscriptionEditIndex.unsubscribe();

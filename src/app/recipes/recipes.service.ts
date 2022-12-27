@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Subject } from 'rxjs';
 import { Ingredient } from '../shared/ingredient.model';
 import { ShoppingListService } from '../shopping-list/shopping-list.service';
 import { Recipe } from './recipe.model';
@@ -7,6 +8,7 @@ import { Recipe } from './recipe.model';
   providedIn: 'root',
 })
 export class RecipesService {
+  recipesChanged: Subject<Recipe[]> = new Subject<Recipe[]>();
 
   private recipes: Recipe[] = [
     new Recipe(
@@ -29,7 +31,7 @@ export class RecipesService {
     ),
   ];
 
-  constructor(private slService: ShoppingListService) { }
+  constructor(private slService: ShoppingListService) {}
 
   getRecipes() {
     return this.recipes.slice();
@@ -40,6 +42,32 @@ export class RecipesService {
   }
 
   getRecipe(id: string): Recipe {
-    return this.recipes.find(r => r.id === id)
+    return this.recipes.find((r) => r.id === id);
+  }
+
+  addRecipe(recipe: Recipe) {
+    this.recipes.push(
+      new Recipe(
+        recipe.name,
+        recipe.description,
+        recipe.imagePath,
+        recipe.ingredients
+      )
+    );
+    this.recipesChanged.next(this.recipes.slice());
+  }
+
+  updateRecipe(id: string, recipe: Recipe) {
+    const recipeIndex = this.recipes.findIndex((r) => r.id === id);
+    if (recipeIndex !== -1) {
+      recipe.id = id;
+      this.recipes[recipeIndex] = recipe;
+      this.recipesChanged.next(this.recipes.slice());
+    }
+  }
+
+  deleteRecipe(id: string) {
+    this.recipes = this.recipes.filter((r) => r.id !== id);
+    this.recipesChanged.next(this.recipes.slice());
   }
 }
