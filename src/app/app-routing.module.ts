@@ -1,17 +1,17 @@
-import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
-import { RecipeDetailComponent } from "./recipes/recipe-detail/recipe-detail.component";
-import { RecipeResolver } from "./recipes/recipe-detail/recipe-resolver.service";
-import { RecipeEditComponent } from "./recipes/recipe-edit/recipe-edit.component";
-import { RecipesStartComponent } from "./recipes/recipes-start/recipes-start.component";
-import { RecipesComponent } from "./recipes/recipes.component";
-import { ShoppingListComponent } from "./shopping-list/shopping-list.component";
+import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
+import { RecipeDetailComponent } from './recipes/recipe-detail/recipe-detail.component';
+import { RecipeResolver } from './recipes/recipe-detail/recipe-resolver.service';
+import { RecipeEditComponent } from './recipes/recipe-edit/recipe-edit.component';
+import { RecipesStartComponent } from './recipes/recipes-start/recipes-start.component';
+import { RecipesComponent } from './recipes/recipes.component';
+import { ShoppingListComponent } from './shopping-list/shopping-list.component';
 
 const appRoutes: Routes = [
   {
     path: '',
     redirectTo: '/recipes',
-    pathMatch: 'full'
+    pathMatch: 'full',
   },
   {
     path: 'recipes',
@@ -19,7 +19,7 @@ const appRoutes: Routes = [
     children: [
       {
         path: '',
-        component: RecipesStartComponent
+        component: RecipesStartComponent,
       },
       {
         path: 'new',
@@ -28,22 +28,22 @@ const appRoutes: Routes = [
       {
         path: ':id',
         component: RecipeDetailComponent,
-        resolve: { recipe: RecipeResolver }
+        resolve: { recipe: RecipeResolver },
       },
       {
         path: ':id/edit',
         component: RecipeEditComponent,
       },
-    ]
+    ],
   },
   {
     path: 'shopping-list',
-    component: ShoppingListComponent
-  }
-]
+    component: ShoppingListComponent,
+  },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(appRoutes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}
