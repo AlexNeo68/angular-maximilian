@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, ComponentFactoryResolver } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Observable, Observer, Subject } from 'rxjs';
+import { AlertComponent } from 'src/app/shared/alert/alert.component';
 import { AuthResponse, AuthService } from '../auth.service';
 import { User } from '../user.model';
 
@@ -17,7 +18,11 @@ export class AuthComponent {
   observer: Observable<AuthResponse>;
   user: Subject<User>;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(
+    private authService: AuthService,
+    private router: Router,
+    private componentFactoryResolver: ComponentFactoryResolver
+  ) {}
   toggleLoginMode() {
     this.isLogginMode = !this.isLogginMode;
   }
@@ -48,5 +53,14 @@ export class AuthComponent {
       }
     );
     form.reset();
+  }
+
+  onShowAlert(message: string) {
+    const alertCmpFactory =
+      this.componentFactoryResolver.resolveComponentFactory(AlertComponent);
+  }
+
+  onErrorHandle() {
+    this.error = '';
   }
 }
