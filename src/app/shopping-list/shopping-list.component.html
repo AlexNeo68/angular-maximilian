@@ -1,7 +1,8 @@
 <app-shopping-edit></app-shopping-edit>
 <hr />
 <div class="list-group">
-  <a style="cursor: pointer;" (click)="onStartEdit(i)" *ngFor="let ingredient of ingredients; let i = index"
+  <a style="cursor: pointer;" (click)="onStartEdit(i)"
+    *ngFor="let ingredient of (ingredients | async)?.ingredients; let i = index"
     class="list-group-item list-group-item-action" aria-current="true">
     {{ ingredient.name }} ({{ ingredient.amount }})
   </a>
