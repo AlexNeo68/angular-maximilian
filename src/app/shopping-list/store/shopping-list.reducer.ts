@@ -5,7 +5,9 @@ const initialState = {
   ingredients: [
     new Ingredient('Картофель', 500),
     new Ingredient('Сыр', 250),
-  ]
+  ],
+  ingredientEdit: null,
+  ingredientEditIndex: -1
 }
 
 export const shoppingListReducer = (
